@@ -1,8 +1,4 @@
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
+@import '@/styles/reset.css';
 
 body {
   font-family: var(--font-open-sans), Pretendard, -apple-system,
