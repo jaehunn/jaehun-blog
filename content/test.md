@@ -1,5 +1,8 @@
 ---
-slug: next
+title: Title 입니다.
+description: Description 입니다
+slug: test
+date: Oct 09, 2023
 ---
 
 CSR 의 단점으로부터 시작 SSR (React -> Next)
