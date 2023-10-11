@@ -1,0 +1,10 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 5rem 0;
+
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
+}

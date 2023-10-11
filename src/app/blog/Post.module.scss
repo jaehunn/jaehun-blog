@@ -1,0 +1,23 @@
+.wrapper {
+    display: flex;
+    gap: 2rem;
+    padding: 1rem;
+    overflow: hidden;
+}
+
+.title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color:palevioletred;
+}
+
+.date {
+    font-size: 1rem;
+    font-weight: 400;
+    color: gray
+}
+
+.description {
+    font-size: 1rem;
+    font-weight: 400;
+}

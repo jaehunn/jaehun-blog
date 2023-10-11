@@ -1,8 +1,4 @@
 const ROUTES = {
-  ABOUT: {
-    PATH: '/',
-    NAME: 'About',
-  },
   BLOG: {
     PATH: '/blog',
     NAME: 'blog',

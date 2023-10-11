@@ -1,3 +1,11 @@
+import { Suspense } from 'react';
+
+import PostListRSC from './PostListRSC';
+
 export default function Blog() {
-  return <div>Blog</div>;
+  return (
+    <Suspense fallback={<></>}>
+      <PostListRSC />
+    </Suspense>
+  );
 }

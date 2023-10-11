@@ -15,7 +15,7 @@ type Props = {
 
 export default function AboutPage({}: Props) {
   return (
-    <div className={styles.wrapper}>
+    <div className={styles['wrapper']}>
       <div className={styles['image']}>
         <Image src={profileImage} alt={''} />
       </div>
