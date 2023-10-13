@@ -18,11 +18,7 @@ type Props = {
 export async function generateStaticParams() {
   const allContent = await getAllContent();
 
-  if (!allContent) {
-    return null;
-  }
-
-  return allContent.map(({ data }) => ({ slug: data.slug as string }));
+  return allContent?.map(({ data }) => ({ slug: data?.slug })) ?? [];
 }
 
 export default async function PostPage({ params }: Props) {
@@ -37,7 +33,7 @@ export default async function PostPage({ params }: Props) {
     .use(remarkRehype) // Transform to HTML AST
     .use(rehypeSanitize) // Sanitize HTML input
     .use(rehypeStringify) // Convert AST into serialized HTML
-    .process(contentData?.content);
+    .process(contentData.content);
 
   return (
     <div
