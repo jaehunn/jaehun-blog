@@ -18,7 +18,11 @@ type Props = {
 export async function generateStaticParams() {
   const allContent = await getAllContent();
 
-  return allContent?.map(({ data }) => ({ slug: data.slug }));
+  if (!allContent) {
+    return null;
+  }
+
+  return allContent.map(({ data }) => ({ slug: data.slug as string }));
 }
 
 export default async function PostPage({ params }: Props) {
