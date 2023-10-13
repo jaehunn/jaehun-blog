@@ -1,5 +1,7 @@
 import { PropsWithChildren } from 'react';
 
+import styles from './layout.module.scss';
+
 export const metadata = {
   title: 'Blog',
   description: '',
@@ -9,5 +11,5 @@ export const metadata = {
 };
 
 export default function Layout({ children }: PropsWithChildren<unknown>) {
-  return <>{children}</>;
+  return <div className={styles['wrapper']}>{children}</div>;
 }

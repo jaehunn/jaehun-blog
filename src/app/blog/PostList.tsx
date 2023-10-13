@@ -2,7 +2,6 @@
 
 import Post from './Post';
 
-import styles from './PostList.module.scss';
 import { Post as PostType } from '@/types/post';
 
 type Props = {
@@ -15,17 +14,12 @@ export default function PostList({ posts }: Props) {
   }
 
   return (
-    <ul className={styles['wrapper']}>
+    <ul>
       {posts.map((post) => {
         return (
-          <>
-            <li key={`${post.slug}`}>
-              <Post {...post} />
-            </li>
-            <li key={`${post.slug}`}>
-              <Post {...post} />
-            </li>
-          </>
+          <li key={`${post.slug}`}>
+            <Post {...post} />
+          </li>
         );
       })}
     </ul>
