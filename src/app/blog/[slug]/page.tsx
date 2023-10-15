@@ -1,5 +1,3 @@
-import '@/styles/markdown.css';
-
 import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
@@ -37,7 +35,7 @@ export default async function PostPage({ params }: Props) {
 
   return (
     <div
-      className={`markdown-body`}
+      className="markdown-body"
       dangerouslySetInnerHTML={{
         __html: contentHtml.value,
       }}

@@ -30,7 +30,7 @@
         gap: 1rem;
         
         li:hover {
-            color: tomato;
+            color: var(--color-prettylights-syntax-keyword);
         }
     }
 }
@@ -61,7 +61,7 @@
             }
 
             &:hover {
-                color: tomato;
+                color: var(--color-prettylights-syntax-keyword);
             }
         }
     }
