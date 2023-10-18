@@ -12,5 +12,8 @@ export type Post = {
   body: string;
 
   /** 생성일 */
-  date: string;
+  createdAt: string;
+
+  /** 업데이트일 */
+  updatedAt: string;
 };

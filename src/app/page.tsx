@@ -9,11 +9,7 @@ import profileImage from '@/images/profile.png';
 import PROFILE from '@/constants/profile';
 import styles from './page.module.scss';
 
-type Props = {
-  // ...
-};
-
-export default function AboutPage({}: Props) {
+export default function AboutPage() {
   return (
     <div className={styles['wrapper']}>
       <div className={styles['image']}>
