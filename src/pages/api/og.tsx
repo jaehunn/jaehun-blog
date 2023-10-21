@@ -1,28 +1,44 @@
-import { NextRequest, ImageResponse } from 'next/server';
-import styles from './og.module.scss';
+import { NextApiRequest } from 'next';
+import { ImageResponse } from 'next/server';
 
-const font = fetch(new URL('@/fonts/OpenSans-Medium.ttf', import.meta.url)).then((res) => res.arrayBuffer());
+/** @see https://nextjs.org/docs/app/building-your-application/routing/route-handlers#edge-and-nodejs-runtimes */
+export const runtime = 'edge';
 
-const handler = async (req: NextRequest) => {
-  const { searchParams } = new URL(req.url);
-  const title = searchParams.get('title') ?? 'Jaehun Dev';
-  const createdAt = searchParams.get('createdAt');
+const font = fetch(new URL('./fonts/OpenSans-Medium.ttf', import.meta.url)).then((res) => res.arrayBuffer());
+
+/** @see https://nextjs.org/docs/pages/building-your-application/routing/api-routes */
+const handler = async (req: NextApiRequest) => {
+  const { searchParams } = new URL(`${req?.url}`, process.env.NEXT_PUBLIC_HOST);
+  const title = searchParams.get('title');
 
   const fontData = await font;
 
-  /** TODO: */
+  if (!title) {
+    return new Response('Missing title.', { status: 400 });
+  }
+
   /** @see https://nextjs.org/docs/app/api-reference/functions/image-response */
   return new ImageResponse(
     (
-      <div className={styles['wrapper']}>
-        <div>
-          <span>jaehun.dev</span>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100%',
+          height: '100% ',
+          backgroundColor: '#e6edf3',
+          color: '#1F2328',
+        }}
+      >
+        <div
+          style={{
+            display: 'flex',
 
-          {createdAt && <div>{createdAt}</div>}
-        </div>
-
-        <div>
-          <div>{title}</div>
+            fontSize: '5rem',
+          }}
+        >
+          {title.toLocaleUpperCase()}
         </div>
       </div>
     ),

@@ -90,10 +90,10 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: `https://jaehun.dev/api/og?title=${encodeURIComponent('Jaehun Dev')}`,
+        url: `https://jaehun.dev/api/og?title=${encodeURIComponent('JAEHUN DEV')}`,
         width: 1200,
-        height: 630,
-        alt: "Jaehun's site",
+        height: 600,
+        alt: "Jaehun's personal blog",
       },
     ],
   },
