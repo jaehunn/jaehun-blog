@@ -4488,7 +4488,6 @@ __metadata:
     jest: ^29.7.0
     jest-environment-jsdom: ^29.7.0
     lint-staged: ^14.0.1
-    marked: ^9.1.2
     next: 13.5.3
     next-themes: ^0.2.1
     prettier: ^3.0.3
@@ -5355,15 +5354,6 @@ __metadata:
   dependencies:
     tmpl: 1.0.5
   checksum: b38a025a12c8146d6eeea5a7f2bf27d51d8ad6064da8ca9405fcf7bf9b54acd43e3b30ddd7abb9b1bfa4ddb266019133313482570ddb207de568f71ecfcf6060
-  languageName: node
-  linkType: hard
-
-"marked@npm:^9.1.2":
-  version: 9.1.2
-  resolution: "marked@npm:9.1.2"
-  bin:
-    marked: bin/marked.js
-  checksum: 8dd1b9e268f149d770397b5299e73dc6b5ae915f867acfaa166603eb5b137cfadaa40406048f424371729036abdf3b0bb629223520571534ec32e27746a798d2
   languageName: node
   linkType: hard
 

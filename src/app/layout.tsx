@@ -51,7 +51,7 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
                 <nav className={styles['footer-nav']}>
                   <ul>
                     <li>
-                      <Link href={'/api/rss'}>
+                      <Link href={'./rss.xml'}>
                         <RssIcon size={20} />
                         RSS
                       </Link>
@@ -122,7 +122,7 @@ export const metadata: Metadata = {
   /** @see https://nextjs.org/docs/app/api-reference/functions/generate-metadata#alternates */
   alternates: {
     types: {
-      'application/rss+xml': 'https://jaehun.dev/api/rss',
+      'application/rss+xml': 'https://jaehun.dev/rss.xml',
     },
   },
 };
