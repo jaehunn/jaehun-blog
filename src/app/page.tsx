@@ -7,7 +7,7 @@ import { VscGithubAlt as GithubIcon } from '@react-icons/all-files/vsc/VscGithub
 
 import profileImage from '@/images/profile.png';
 import PROFILE from '@/constants/profile';
-import styles from './page.module.scss';
+import * as styles from './page.css';
 
 export default function AboutPage() {
   return (
@@ -24,7 +24,7 @@ export default function AboutPage() {
         {PROFILE.POSITION.NAME && (
           <div className={styles['position']}>
             <PositionIcon size="20" />
-            {PROFILE.POSITION.NAME}, <span className={styles['position-company']}>{PROFILE.POSITION.COMPANY}</span>
+            {PROFILE.POSITION.NAME}, <span className={styles['positionCompany']}>{PROFILE.POSITION.COMPANY}</span>
           </div>
         )}
 
@@ -36,14 +36,14 @@ export default function AboutPage() {
           {PROFILE.LOCATION.NAME}
         </div>
 
-        <div className={styles['contacts']}>
+        <div>
           <div className={styles['gmail']}>
             <GmailIcon size="20" />
 
             {PROFILE.CONTANCTS.GMAIL.URL}
           </div>
 
-          <div className={styles['linked-in']}>
+          <div className={styles['linkedIn']}>
             <LinkedInIcon size="20" />
 
             <a href={PROFILE.CONTANCTS.LINKED_IN.URL} target="_blank" rel="noreferrer noopener">

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import styles from './Post.module.scss';
+import * as styles from './Post.css';
 import { Post as PostType } from '@/types/post';
 
 type Props = PostType & {

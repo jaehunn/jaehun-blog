@@ -12,7 +12,7 @@ import ThemeProvider from '@/components/ThemeProvider';
 /** CSR */
 const ThemeToggleButton = dynamic(() => import('@/components/ThemeToggleButton'), { ssr: false });
 
-import styles from './layout.module.scss';
+import * as styles from './layout.css';
 import ROUTES from '@/constants/routes';
 import { OpenSans } from '@/fonts';
 
@@ -21,22 +21,22 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
     <html lang="en" className={OpenSans.variable}>
       <body>
         <ThemeProvider>
-          <main className={styles['content-container']}>
-            <div className={styles['content-wrapper']}>
+          <main className={styles['contentContainer']}>
+            <div className={styles['contentWrapper']}>
               <header className={styles['header']}>
                 <div>
                   <Link href={'/'}>Jaehun Dev</Link>
                 </div>
 
-                <nav className={styles['header-nav']}>
-                  <ul>
-                    <li key={`theme-toggle-button`}>
+                <nav>
+                  <ul className={styles['headerNavList']}>
+                    <li className={styles['headerNavItem']} key={`theme-toggle-button`}>
                       <ThemeToggleButton />
                     </li>
 
                     {Object.values(ROUTES).map(({ PATH, NAME }) => {
                       return (
-                        <li key={PATH}>
+                        <li className={styles['headerNavItem']} key={PATH}>
                           <Link href={PATH}>{NAME}</Link>
                         </li>
                       );
@@ -48,9 +48,9 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
               <article>{children}</article>
 
               <footer className={styles['footer']}>
-                <nav className={styles['footer-nav']}>
-                  <ul>
-                    <li>
+                <nav>
+                  <ul className={styles['footerNavList']}>
+                    <li className={styles['footerNavItem']}>
                       <Link href={'./rss.xml'}>
                         <RssIcon size={20} />
                         RSS

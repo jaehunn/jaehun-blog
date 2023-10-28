@@ -4,7 +4,7 @@ import { useTheme } from 'next-themes';
 import { HiOutlineLightBulb } from '@react-icons/all-files/hi/HiOutlineLightBulb';
 import { HiLightBulb } from '@react-icons/all-files/hi/HiLightBulb';
 
-import styles from './ThemeToggleButto.module.scss';
+import * as styles from './ThemeToggleButton.css';
 
 const ThemeToggleButton = () => {
   const { theme, setTheme } = useTheme();

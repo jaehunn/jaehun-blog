@@ -1,11 +1,9 @@
-const path = require('path');
+const { createVanillaExtractPlugin } = require('@vanilla-extract/next-plugin');
+const withVanillaExtract = createVanillaExtractPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /** Sass */
-  sassOptions: {
-    includePaths: [path.join(__dirname, 'styles')],
-  },
+  // ...
 };
 
-module.exports = nextConfig;
+module.exports = withVanillaExtract(nextConfig);

@@ -1,6 +1,6 @@
 import { PropsWithChildren } from 'react';
 
-import styles from './layout.module.scss';
+import * as styles from './layout.css';
 
 export const metadata = {
   title: 'Blog',
