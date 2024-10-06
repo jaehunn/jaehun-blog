@@ -15,8 +15,19 @@ const ThemeToggleButton = dynamic(() => import('@/components/ThemeToggleButton')
 import * as styles from './layout.css';
 import ROUTES from '@/constants/routes';
 import { OpenSans } from '@/fonts';
+import { Client } from '@notionhq/client';
 
-export default function RootLayout({ children }: PropsWithChildren<unknown>) {
+export default async function RootLayout({ children }: PropsWithChildren<unknown>) {
+  const notion = new Client({
+    auth: process.env.NOTION_TOKEN,
+  });
+
+  const queryResponse = await notion.databases.retrieve({
+    database_id: process.env.NOTION_DATABASE_ID,
+  });
+
+  console.log(queryResponse.properties);
+
   return (
     <html lang="en" className={OpenSans.variable}>
       <body>
