@@ -14,11 +14,13 @@ const ThemeToggleButton = dynamic(() => import('@/components/ThemeToggleButton')
 
 import * as styles from './layout.css';
 import ROUTES from '@/constants/routes';
-import { OpenSans } from '@/fonts';
+import { Inter } from 'next/font/google';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export default function RootLayout({ children }: PropsWithChildren<unknown>) {
   return (
-    <html lang="en" className={OpenSans.variable}>
+    <html lang="en" className={inter.variable}>
       <body>
         <ThemeProvider>
           <main className={styles['contentContainer']}>

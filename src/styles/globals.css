@@ -2,13 +2,25 @@
 @import './color.css';
 @import './markdown.css';
 
+
 body {
-  margin: 0;
-  background-color: var(--color-canvas-default);
   color: var(--color-fg-default);
-  font-family: var(--font-open-sans), -apple-system,
+  background-color: var(--color-canvas-default);
+  font-family: "Inter", -apple-system,
     BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
     "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
