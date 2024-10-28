@@ -1,29 +1,29 @@
-import { unified } from 'unified';
-import remarkParse from 'remark-parse';
-import remarkRehype from 'remark-rehype';
-import rehypeSanitize from 'rehype-sanitize';
-import rehypeStringify from 'rehype-stringify';
+import { unified } from 'unified'
+import remarkParse from 'remark-parse'
+import remarkRehype from 'remark-rehype'
+import rehypeSanitize from 'rehype-sanitize'
+import rehypeStringify from 'rehype-stringify'
 
-import getContentBySlug from '@/utils/getContentBySlug';
-import getAllContent from '@/utils/getAllContent';
+import getContentBySlug from '~/utils/getContentBySlug'
+import getAllContent from '~/utils/getAllContent'
 
 type Props = {
   params: {
-    slug: string;
-  };
-};
+    slug: string
+  }
+}
 
 export async function generateStaticParams() {
-  const allContent = await getAllContent();
+  const allContent = await getAllContent()
 
-  return allContent?.map(({ data }) => ({ slug: data?.slug })) ?? [];
+  return allContent?.map(({ data }) => ({ slug: data?.slug })) ?? []
 }
 
 export default async function PostPage({ params }: Props) {
-  const contentData = await getContentBySlug(params.slug);
+  const contentData = await getContentBySlug(params.slug)
 
   if (!contentData?.content) {
-    return <div></div>;
+    return <div></div>
   }
 
   const contentHtml = await unified()
@@ -31,7 +31,7 @@ export default async function PostPage({ params }: Props) {
     .use(remarkRehype) // Transform to HTML AST
     .use(rehypeSanitize) // Sanitize HTML input
     .use(rehypeStringify) // Convert AST into serialized HTML
-    .process(contentData.content);
+    .process(contentData.content)
 
   return (
     <div
@@ -40,5 +40,5 @@ export default async function PostPage({ params }: Props) {
         __html: contentHtml.value,
       }}
     />
-  );
+  )
 }

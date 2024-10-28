@@ -1,11 +1,11 @@
-import Link from 'next/link';
+import Link from 'next/link'
 
-import * as styles from './Post.css';
-import { Post as PostType } from '@/types/post';
+import styles from './Post.module.css'
+import { Post as PostType } from '~/types/post'
 
 type Props = PostType & {
   // ...
-};
+}
 
 export default function Post({ slug, title, description, createdAt }: Props) {
   return (
@@ -26,5 +26,5 @@ export default function Post({ slug, title, description, createdAt }: Props) {
         <p className={styles['description']}>{description}</p>
       </Link>
     </div>
-  );
+  )
 }

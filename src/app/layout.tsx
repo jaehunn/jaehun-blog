@@ -1,73 +1,61 @@
-import '@/styles/globals.css';
+import '~/styles/globals.css'
 
-import type { Metadata } from 'next';
-import Link from 'next/link';
-import dynamic from 'next/dynamic';
-import { FiRss as RssIcon } from '@react-icons/all-files/fi/FiRss';
-import { PropsWithChildren } from 'react';
-import { Analytics } from '@vercel/analytics/react';
+import type { Metadata } from 'next'
+import Link from 'next/link'
+import { FiRss as RssIcon } from '@react-icons/all-files/fi/FiRss'
+import { PropsWithChildren } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 
-import ThemeProvider from '@/components/ThemeProvider';
-
-/** CSR */
-const ThemeToggleButton = dynamic(() => import('@/components/ThemeToggleButton'), { ssr: false });
-
-import * as styles from './layout.css';
-import ROUTES from '@/constants/routes';
-import { OpenSans } from '@/fonts';
+import styles from './layout.module.css'
+import ROUTES from '~/constants/routes'
+import { OpenSans } from '~/fonts'
 
 export default function RootLayout({ children }: PropsWithChildren<unknown>) {
   return (
     <html lang="en" className={OpenSans.variable}>
       <body>
-        <ThemeProvider>
-          <main className={styles['contentContainer']}>
-            <div className={styles['contentWrapper']}>
-              <header className={styles['header']}>
-                <div>
-                  <Link href={'/'}>Jaehun Dev</Link>
-                </div>
+        <main className={styles['contentContainer']}>
+          <div className={styles['contentWrapper']}>
+            <header className={styles['header']}>
+              <div>
+                <Link href={'/'}>Jaehun Dev</Link>
+              </div>
 
-                <nav>
-                  <ul className={styles['headerNavList']}>
-                    <li className={styles['headerNavItem']} key={`theme-toggle-button`}>
-                      <ThemeToggleButton />
-                    </li>
+              <nav>
+                <ul className={styles['headerNavList']}>
+                  {Object.values(ROUTES).map(({ PATH, NAME }) => {
+                    return (
+                      <li className={styles['headerNavItem']} key={PATH}>
+                        <Link href={PATH}>{NAME}</Link>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </nav>
+            </header>
 
-                    {Object.values(ROUTES).map(({ PATH, NAME }) => {
-                      return (
-                        <li className={styles['headerNavItem']} key={PATH}>
-                          <Link href={PATH}>{NAME}</Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </nav>
-              </header>
+            <article>{children}</article>
 
-              <article>{children}</article>
+            <footer className={styles['footer']}>
+              <nav>
+                <ul className={styles['footerNavList']}>
+                  <li className={styles['footerNavItem']}>
+                    <Link href={'./rss.xml'}>
+                      <RssIcon size={20} />
+                      RSS
+                    </Link>
+                  </li>
+                </ul>
+              </nav>
+            </footer>
+          </div>
+        </main>
 
-              <footer className={styles['footer']}>
-                <nav>
-                  <ul className={styles['footerNavList']}>
-                    <li className={styles['footerNavItem']}>
-                      <Link href={'./rss.xml'}>
-                        <RssIcon size={20} />
-                        RSS
-                      </Link>
-                    </li>
-                  </ul>
-                </nav>
-              </footer>
-            </div>
-          </main>
-
-          {/* @see https://vercel.com/docs/analytics/package */}
-          <Analytics />
-        </ThemeProvider>
+        {/* @see https://vercel.com/docs/analytics/package */}
+        <Analytics />
       </body>
     </html>
-  );
+  )
 }
 
 export const metadata: Metadata = {
@@ -90,7 +78,9 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: `https://jaehun.dev/api/og?title=${encodeURIComponent('JAEHUN DEV')}`,
+        url: `https://jaehun.dev/api/og?title=${encodeURIComponent(
+          'JAEHUN DEV'
+        )}`,
         width: 1200,
         height: 600,
         alt: "Jaehun's personal blog",
@@ -125,4 +115,4 @@ export const metadata: Metadata = {
       'application/rss+xml': 'https://jaehun.dev/rss.xml',
     },
   },
-};
+}

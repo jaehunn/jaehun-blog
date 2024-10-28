@@ -1,0 +1,100 @@
+.wrapper {
+  display: flex;
+  gap: 2rem;
+  padding: 5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+}
+
+.image {
+  width: 12rem;
+  height: 12rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.image > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.name {
+  font-size: 2rem;
+  font-weight: 500;
+  word-break: keep-all;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 320px) {
+  .name {
+    text-align: center;
+  }
+}
+
+.position {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+@media screen and (max-width: 320px) {
+  .position {
+    flex-direction: column;
+  }
+}
+
+.positionCompany {
+  font-size: 1rem;
+  color: var(--color-prettylights-syntax-comment);
+}
+
+.description {
+  font-size: 1rem;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.contacts {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.gmail {
+  composes: contacts;
+}
+
+.linkedIn {
+  composes: contacts;
+}
+
+.linkedIn:hover {
+  color: var(--color-prettylights-syntax-keyword);
+}
+
+.github {
+  composes: contacts;
+}
+
+.github:hover {
+  color: var(--color-prettylights-syntax-keyword);
+}

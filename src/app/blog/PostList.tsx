@@ -1,16 +1,16 @@
-'use client';
+'use client'
 
-import Post from './Post';
+import Post from './Post'
 
-import { Post as PostType } from '@/types/post';
+import { Post as PostType } from '~/types/post'
 
 type Props = {
-  posts: PostType[];
-};
+  posts: PostType[]
+}
 
 export default function PostList({ posts }: Props) {
   if (posts?.length === 0) {
-    return null;
+    return null
   }
 
   return (
@@ -20,8 +20,8 @@ export default function PostList({ posts }: Props) {
           <li key={`${post.slug}`}>
             <Post {...post} />
           </li>
-        );
+        )
       })}
     </ul>
-  );
+  )
 }
