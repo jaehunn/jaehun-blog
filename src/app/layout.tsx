@@ -7,43 +7,39 @@ import { Analytics } from '@vercel/analytics/react'
 
 import ROUTES from '~/constants/routes'
 import { OpenSans } from '~/fonts'
+import styles from './layout.module.scss'
+import { Spacing } from '~/components/Spacing'
 
 export default function RootLayout({ children }: PropsWithChildren<unknown>) {
   return (
     <html lang="en" className={OpenSans.variable}>
       <body>
-        <main>
-          <div>
-            <header>
-              <div>
-                <Link href={'/'}>Jaehun Dev</Link>
-              </div>
+        <main className={styles.main}>
+          <header className={styles.header}>
+            <div>
+              <Link href={'/'}>Jaehun Dev</Link>
+            </div>
 
-              <nav>
-                <ul>
-                  {Object.values(ROUTES).map(({ PATH, NAME }) => {
-                    return (
-                      <li key={PATH}>
-                        <Link href={PATH}>{NAME}</Link>
-                      </li>
-                    )
-                  })}
-                </ul>
-              </nav>
-            </header>
+            <Spacing type="large" />
 
-            <article>{children}</article>
+            <nav>
+              <ul>
+                {Object.values(ROUTES).map(({ PATH, NAME }) => {
+                  return (
+                    <li key={PATH}>
+                      <Link href={PATH}>{NAME}</Link>
+                    </li>
+                  )
+                })}
 
-            <footer>
-              <nav>
-                <ul>
-                  <li>
-                    <Link href={'./rss.xml'}>RSS</Link>
-                  </li>
-                </ul>
-              </nav>
-            </footer>
-          </div>
+                <Link href={'./rss.xml'}>RSS</Link>
+              </ul>
+            </nav>
+          </header>
+
+          <Spacing />
+
+          <article className={styles.article}>{children}</article>
         </main>
 
         {/* @see https://vercel.com/docs/analytics/package */}

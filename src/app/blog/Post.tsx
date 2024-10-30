@@ -1,6 +1,8 @@
 import Link from 'next/link'
 
 import { Post as PostType } from '~/types/post'
+import styles from './Post.module.scss'
+import { Spacing } from '~/components/Spacing'
 
 type Props = PostType & {
   // ...
@@ -8,22 +10,20 @@ type Props = PostType & {
 
 export default function Post({ slug, title, description, createdAt }: Props) {
   return (
-    <div>
-      <Link href={`/blog/${slug}`}>
-        <h4>{title}</h4>
+    <Link className={styles.post} href={`/blog/${slug}`}>
+      <h4>{title}</h4>
 
-        <div>
-          <span>
-            {new Intl.DateTimeFormat('ko-KR', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            }).format(new Date(createdAt))}
-          </span>
-        </div>
+      <p>{description}</p>
 
-        <p>{description}</p>
-      </Link>
-    </div>
+      <Spacing type="small" />
+
+      <span>
+        {new Intl.DateTimeFormat('ko-KR', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        }).format(new Date(createdAt))}
+      </span>
+    </Link>
   )
 }

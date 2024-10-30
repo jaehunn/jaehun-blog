@@ -1,0 +1,23 @@
+.posts {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.post {
+  display: flex;
+  flex-direction: column;
+
+  & > h4 {
+    font-size: x-large;
+    font-weight: 500;
+  }
+
+  & > p {
+    font-size: medium;
+  }
+
+  & > span {
+    font-size: small;
+  }
+}

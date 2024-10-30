@@ -1,0 +1,27 @@
+.main {
+  max-width: 42rem;
+  margin: 0 auto;
+  padding: var(--spacing-medium);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+
+  font-size: xx-large;
+  font-weight: bold;
+
+  & > nav {
+    font-size: large;
+
+    & > ul {
+      display: flex;
+      flex-direction: row;
+      column-gap: var(--spacing-large);
+    }
+  }
+}
+
+.article {
+  // ...
+}

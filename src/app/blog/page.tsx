@@ -1,11 +1,16 @@
-import { Suspense } from 'react';
+import { Suspense } from 'react'
 
-import PostListRSC from './PostListRSC';
+import PostListRSC from './PostListRSC'
+import styles from './page.module.scss'
 
 export default function Blog() {
   return (
-    <Suspense fallback={<></>}>
-      <PostListRSC />
-    </Suspense>
-  );
+    <div>
+      <section>
+        <Suspense fallback={<></>}>
+          <PostListRSC />
+        </Suspense>
+      </section>
+    </div>
+  )
 }

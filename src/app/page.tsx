@@ -2,53 +2,53 @@ import Image from 'next/image'
 
 import profileImage from '~/images/profile.png'
 import PROFILE from '~/constants/profile'
+import styles from './page.module.scss'
+import { Spacing } from '~/components/Spacing'
 
 export default function AboutPage() {
   return (
-    <div>
-      <div>
-        <Image src={profileImage} alt={''} />
-      </div>
+    <div className={styles.page}>
+      {/* @see {Image} https://nextjs.org/docs/pages/api-reference/components/image */}
+      {/* <Image
+        src={profileImage}
+        sizes="100vw"
+        style={{ width: '100%', height: 'auto' }}
+        width={300}
+        height={300}
+        alt=""
+      /> */}
 
-      <div>
-        <div>
-          {PROFILE.LAST_NAME}, {PROFILE.FIRST_NAME}
-        </div>
+      <Spacing />
 
-        {PROFILE.POSITION.NAME && (
-          <div>
-            {PROFILE.POSITION.NAME}, <span>{PROFILE.POSITION.COMPANY}</span>
-          </div>
-        )}
+      <section className={styles.position}>
+        <ul>
+          {Object.entries(PROFILE['POSITION']).map(([key, value]) => {
+            return (
+              <>
+                <li key={key}>{value}</li>
 
-        <div>{PROFILE.DESCRIPTION}</div>
+                <Spacing type="small" />
+              </>
+            )
+          })}
+        </ul>
+      </section>
 
-        <div>{PROFILE.LOCATION.NAME}</div>
+      <Spacing />
 
-        <div>
-          <div>{PROFILE.CONTANCTS.GMAIL.URL}</div>
+      <section className={styles.contacts}>
+        <ul>
+          {Object.entries(PROFILE['CONTANCTS']).map(([key, value]) => {
+            return (
+              <>
+                <li key={key}>{value.URL}</li>
 
-          <div>
-            <a
-              href={PROFILE.CONTANCTS.LINKED_IN.URL}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              {PROFILE.CONTANCTS.LINKED_IN.URL}
-            </a>
-          </div>
-
-          <div>
-            <a
-              href={PROFILE.CONTANCTS.GITHUB.URL}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              {PROFILE.CONTANCTS.GITHUB.URL}
-            </a>
-          </div>
-        </div>
-      </div>
+                <Spacing type="small" />
+              </>
+            )
+          })}
+        </ul>
+      </section>
     </div>
   )
 }

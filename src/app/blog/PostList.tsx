@@ -3,6 +3,7 @@
 import Post from './Post'
 
 import { Post as PostType } from '~/types/post'
+import styles from './PostList.module.scss'
 
 type Props = {
   posts: PostType[]
@@ -14,10 +15,10 @@ export default function PostList({ posts }: Props) {
   }
 
   return (
-    <ul>
+    <ul className={styles.posts}>
       {posts.map((post) => {
         return (
-          <li key={`${post.slug}`}>
+          <li className={styles.post} key={`${post.slug}`}>
             <Post {...post} />
           </li>
         )
