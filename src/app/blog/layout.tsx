@@ -1,6 +1,4 @@
-import { PropsWithChildren } from 'react';
-
-import styles from './layout.module.css';
+import { PropsWithChildren } from 'react'
 
 export const metadata = {
   title: 'Blog',
@@ -8,8 +6,8 @@ export const metadata = {
   alternates: {
     canonical: '',
   },
-};
+}
 
 export default function Layout({ children }: PropsWithChildren<unknown>) {
-  return <div className={styles['wrapper']}>{children}</div>;
+  return <div>{children}</div>
 }

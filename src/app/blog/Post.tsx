@@ -1,6 +1,5 @@
 import Link from 'next/link'
 
-import styles from './Post.module.css'
 import { Post as PostType } from '~/types/post'
 
 type Props = PostType & {
@@ -9,11 +8,11 @@ type Props = PostType & {
 
 export default function Post({ slug, title, description, createdAt }: Props) {
   return (
-    <div className={styles['wrapper']}>
+    <div>
       <Link href={`/blog/${slug}`}>
-        <h4 className={styles['title']}>{title}</h4>
+        <h4>{title}</h4>
 
-        <div className={styles['createdAt']}>
+        <div>
           <span>
             {new Intl.DateTimeFormat('ko-KR', {
               year: 'numeric',
@@ -23,7 +22,7 @@ export default function Post({ slug, title, description, createdAt }: Props) {
           </span>
         </div>
 
-        <p className={styles['description']}>{description}</p>
+        <p>{description}</p>
       </Link>
     </div>
   )

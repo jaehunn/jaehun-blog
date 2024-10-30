@@ -2,11 +2,9 @@ import '~/styles/globals.css'
 
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { FiRss as RssIcon } from '@react-icons/all-files/fi/FiRss'
 import { PropsWithChildren } from 'react'
 import { Analytics } from '@vercel/analytics/react'
 
-import styles from './layout.module.css'
 import ROUTES from '~/constants/routes'
 import { OpenSans } from '~/fonts'
 
@@ -14,18 +12,18 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
   return (
     <html lang="en" className={OpenSans.variable}>
       <body>
-        <main className={styles['contentContainer']}>
-          <div className={styles['contentWrapper']}>
-            <header className={styles['header']}>
+        <main>
+          <div>
+            <header>
               <div>
                 <Link href={'/'}>Jaehun Dev</Link>
               </div>
 
               <nav>
-                <ul className={styles['headerNavList']}>
+                <ul>
                   {Object.values(ROUTES).map(({ PATH, NAME }) => {
                     return (
-                      <li className={styles['headerNavItem']} key={PATH}>
+                      <li key={PATH}>
                         <Link href={PATH}>{NAME}</Link>
                       </li>
                     )
@@ -36,14 +34,11 @@ export default function RootLayout({ children }: PropsWithChildren<unknown>) {
 
             <article>{children}</article>
 
-            <footer className={styles['footer']}>
+            <footer>
               <nav>
-                <ul className={styles['footerNavList']}>
-                  <li className={styles['footerNavItem']}>
-                    <Link href={'./rss.xml'}>
-                      <RssIcon size={20} />
-                      RSS
-                    </Link>
+                <ul>
+                  <li>
+                    <Link href={'./rss.xml'}>RSS</Link>
                   </li>
                 </ul>
               </nav>

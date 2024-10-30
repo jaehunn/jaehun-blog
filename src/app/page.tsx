@@ -1,54 +1,34 @@
 import Image from 'next/image'
-import { FiBriefcase as PositionIcon } from '@react-icons/all-files/fi/FiBriefcase'
-import { FiMapPin as LocationIcon } from '@react-icons/all-files/fi/FiMapPin'
-import { CgMail as GmailIcon } from '@react-icons/all-files/cg/CgMail'
-import { RiLinkedinBoxLine as LinkedInIcon } from '@react-icons/all-files/ri/RiLinkedinBoxLine'
-import { VscGithubAlt as GithubIcon } from '@react-icons/all-files/vsc/VscGithubAlt'
 
 import profileImage from '~/images/profile.png'
 import PROFILE from '~/constants/profile'
-import styles from './page.module.css'
 
 export default function AboutPage() {
   return (
-    <div className={styles['wrapper']}>
-      <div className={styles['image']}>
+    <div>
+      <div>
         <Image src={profileImage} alt={''} />
       </div>
 
-      <div className={styles['profile']}>
-        <div className={styles['name']}>
+      <div>
+        <div>
           {PROFILE.LAST_NAME}, {PROFILE.FIRST_NAME}
         </div>
 
         {PROFILE.POSITION.NAME && (
-          <div className={styles['position']}>
-            <PositionIcon size="20" />
-            {PROFILE.POSITION.NAME},{' '}
-            <span className={styles['positionCompany']}>
-              {PROFILE.POSITION.COMPANY}
-            </span>
+          <div>
+            {PROFILE.POSITION.NAME}, <span>{PROFILE.POSITION.COMPANY}</span>
           </div>
         )}
 
-        <div className={styles['description']}>{PROFILE.DESCRIPTION}</div>
+        <div>{PROFILE.DESCRIPTION}</div>
 
-        <div className={styles['location']}>
-          <LocationIcon size="20" />
-
-          {PROFILE.LOCATION.NAME}
-        </div>
+        <div>{PROFILE.LOCATION.NAME}</div>
 
         <div>
-          <div className={styles['gmail']}>
-            <GmailIcon size="20" />
+          <div>{PROFILE.CONTANCTS.GMAIL.URL}</div>
 
-            {PROFILE.CONTANCTS.GMAIL.URL}
-          </div>
-
-          <div className={styles['linkedIn']}>
-            <LinkedInIcon size="20" />
-
+          <div>
             <a
               href={PROFILE.CONTANCTS.LINKED_IN.URL}
               target="_blank"
@@ -58,9 +38,7 @@ export default function AboutPage() {
             </a>
           </div>
 
-          <div className={styles['github']}>
-            <GithubIcon size="20" />
-
+          <div>
             <a
               href={PROFILE.CONTANCTS.GITHUB.URL}
               target="_blank"
