@@ -1,0 +1,24 @@
+[data-theme='light'] {
+  color-scheme: light;
+  --color-primary: #0070f3;
+  --color-secondary: #1c1c1e;
+  --color-background: #ffffff;
+  --color-text: #333333;
+  --color-accent: #ff4081;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --color-primary: #0a84ff;
+  --color-secondary: #f2f2f2;
+  --color-background: #121212;
+  --color-text: #e5e5e5;
+  --color-accent: #ff5e8d;
+}
+
+/* Spacing */
+:root {
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 24px;
+}

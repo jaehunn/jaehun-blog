@@ -1,0 +1,14 @@
+.small {
+  flex: unset;
+  height: var(--spacing-small);
+}
+
+.medium {
+  flex: unset;
+  height: var(--spacing-medium);
+}
+
+.large {
+  flex: unset;
+  height: var(--spacing-large);
+}
