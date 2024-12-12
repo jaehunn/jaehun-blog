@@ -5,7 +5,9 @@ export const getBooks = async () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const gitBooks = (await getGitBooks()) as any[]
 
-  const books: Article[] = gitBooks.map((book) => {
+  const publicGitBooks = gitBooks.filter((book) => book.visibility === 'public')
+
+  const books: Article[] = publicGitBooks.map((book) => {
     const { id, title, createdAt, updatedAt, urls } = book
 
     return {
@@ -16,7 +18,7 @@ export const getBooks = async () => {
       createdAt,
       updatedAt,
       body: title,
-      url: urls?.public ?? '',
+      url: urls.public,
     }
   })
 
