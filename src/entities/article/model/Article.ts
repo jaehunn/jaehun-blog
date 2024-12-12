@@ -1,4 +1,7 @@
 export type Article = {
+  /** 유형 */
+  type: 'article' | 'book'
+
   /** 식별자 */
   id: string
 
@@ -16,4 +19,7 @@ export type Article = {
 
   /** 업데이트일 */
   updatedAt: string
+
+  /** Url */
+  url: string
 }

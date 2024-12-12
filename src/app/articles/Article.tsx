@@ -4,9 +4,9 @@ import { Article as ArticleModel } from '~/entities/article/model'
 import { Badge, Card, Flex, Text } from '@radix-ui/themes'
 import { dateFormatter } from '~/shared/lib/date'
 
-export const Article = ({ id, title, description, createdAt }: ArticleModel) => {
+export const Article = ({ id, title, description, createdAt, url }: ArticleModel) => {
   return (
-    <Link href={`/articles/${id}`}>
+    <Link key={id} href={url}>
       <Flex direction="column" py="2" gap="3">
         <Card variant="surface">
           <Text as="div" size="2" weight="bold" truncate>

@@ -1,8 +1,13 @@
+import { sortBy } from 'lodash-es'
+
 import { ArticleList } from './ArticleList'
-import { getArticles } from '~/entities/article/api'
+import { getArticles, getBooks } from '~/entities/article/api'
 
 export const ArticleListRSC = async () => {
   const articles = await getArticles()
+  const books = await getBooks()
 
-  return <ArticleList articles={articles} />
+  const latestArticles = sortBy([...articles, ...books], 'createdAt').reverse()
+
+  return <ArticleList articles={latestArticles} />
 }

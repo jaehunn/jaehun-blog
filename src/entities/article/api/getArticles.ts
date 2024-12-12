@@ -14,12 +14,14 @@ export const getArticles = async () => {
     const [{ plain_text: description }] = descriptionProperties['rich_text']
 
     return {
+      type: 'article',
       id,
       title,
       description,
       createdAt,
       updatedAt,
       body: `${markdowns[index].parent}`,
+      url: `/articles/${id}`,
     }
   })
 

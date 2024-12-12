@@ -53,12 +53,6 @@ export const metadata: Metadata = {
     shortcut: 'https://jaehun.dev/favicon.ico',
   },
 
-  /** @see https://nextjs.org/docs/app/api-reference/functions/generate-metadata#themecolor */
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#e6edf3' },
-    { media: '(prefers-color-scheme: dark)', color: '#1F2328' },
-  ],
-
   /** @see https://nextjs.org/docs/app/api-reference/functions/generate-metadata#alternates */
   alternates: {
     types: {
