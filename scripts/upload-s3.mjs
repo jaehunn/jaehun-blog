@@ -6,8 +6,11 @@ import { readFile, readdir } from 'node:fs/promises'
 import { parseArgs } from 'node:util'
 import { PutObjectCommand, S3Client, S3ServiceException } from '@aws-sdk/client-s3'
 import { fileTypeFromFile } from 'file-type'
+import dotenv from 'dotenv'
 
 import { isMain, validateArgs } from './node-util.mjs'
+
+dotenv.config({ path: join(process.cwd(), '.env.local') })
 
 const client = new S3Client({
   region: process.env.AWS_S3_REGION,
@@ -41,7 +44,7 @@ function loadArgs() {
   return { errors, results }
 }
 
-async function main({ dirname, prefix = '_next/static' }) {
+async function main({ dirname, prefix = '' }) {
   await uploadDirectory({ currentDir: dirname, prefix })
 }
 

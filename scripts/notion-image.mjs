@@ -1,40 +1,46 @@
 import { unified } from 'unified'
 import remarkParse from 'remark-parse'
-import { map } from 'unist-util-map'
+import { visit } from 'unist-util-visit'
 import { createWriteStream, mkdirSync } from 'node:fs'
 import { join, basename, extname } from 'node:path'
 
-import { notionToMarkdown } from './notion'
 import { createHash } from 'node:crypto'
 
-export const getMarkdownByPage = async (pageId: string) => {
+import { Client } from '@notionhq/client'
+import { NotionToMarkdown } from 'notion-to-md'
+import dotenv from 'dotenv'
+
+dotenv.config({ path: join(process.cwd(), '.env.local') })
+
+export const notionClient = new Client({ auth: process.env.NEXT_PUBLIC_NOTION_API_KEY })
+
+export const notionToMarkdown = new NotionToMarkdown({ notionClient })
+
+const getMarkdownByPage = async (pageId) => {
   const markdownBlocks = await notionToMarkdown.pageToMarkdown(pageId)
 
   const imgBlocks = markdownBlocks.filter((block) => block.type === 'image')
+
+  console.log(imgBlocks)
 
   if (imgBlocks.length > 0) {
     for (const imgBlock of imgBlocks) {
       if (Boolean(imgBlock?.parent)) {
         const ast = unified().use(remarkParse).parse(imgBlock.parent)
 
-        map(ast, (node) => {
-          if (node.type === 'image' && node.url) {
+        visit(ast, 'image', (node) => {
+          if (node.url) {
             const filename = basename(new URL(node.url).pathname)
             const hashedFilename = hashWithMd5(filename).slice(0, 16) + extname(filename)
 
+            // create directory
             const dir = `${process.cwd()}/src/shared/images/${pageId}`
             mkdirSync(dir, { recursive: true })
 
+            // save image
             const savePath = join(dir, hashedFilename)
             saveImage(node.url, savePath)
-
-            return {
-              ...node,
-              url: `${process.env.NEXT_PUBLIC_AWS_CF_URL}/${pageId}/${hashedFilename}`,
-            }
           }
-
-          return node
         })
       }
     }
@@ -45,7 +51,7 @@ export const getMarkdownByPage = async (pageId: string) => {
   return markdown
 }
 
-const saveImage = async (url: string, path: string) => {
+const saveImage = async (url, path) => {
   try {
     const response = await downloadImage(url)
 
@@ -74,7 +80,7 @@ const saveImage = async (url: string, path: string) => {
   }
 }
 
-const downloadImage = async (url: string) => {
+const downloadImage = async (url) => {
   try {
     const response = await fetch(url)
 
@@ -84,9 +90,27 @@ const downloadImage = async (url: string) => {
   }
 }
 
-const hashWithMd5 = (input: string) => {
+const hashWithMd5 = (input) => {
   const hash = createHash('md5')
   hash.update(input)
 
   return hash.digest('hex')
 }
+
+export const getPages = async () => {
+  const database = await notionClient.databases.query({ database_id: process.env.NEXT_PUBLIC_NOTION_DATABASE_ID })
+
+  return database.results
+}
+
+async function main() {
+  const pages = await getPages()
+
+  for (const page of pages) {
+    const markdown = await getMarkdownByPage(page.id)
+
+    console.log(markdown)
+  }
+}
+
+main()
