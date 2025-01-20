@@ -77,12 +77,12 @@ const ContentTypes = {
   '.json': 'application/json; charset=utf-8',
 }
 
-const CacheControl = {
-  '.html': 'max-age=0, s-maxage=31536000',
-  '.js': 'max-age=0, s-maxage=31536000',
-  '.css': 'max-age=0, s-maxage=31536000',
-  '.json': 'max-age=0, s-maxage=31536000',
-}
+// const CacheControl = {
+//   '.html': 'max-age=0, s-maxage=31536000',
+//   '.js': 'max-age=0, s-maxage=31536000',
+//   '.css': 'max-age=0, s-maxage=31536000',
+//   '.json': 'max-age=0, s-maxage=31536000',
+// }
 
 async function uploadFile({ sourceFilePath, uploadPath }) {
   const ext = extname(sourceFilePath)
@@ -99,9 +99,9 @@ async function uploadFile({ sourceFilePath, uploadPath }) {
     commandObj['ContentType'] = ContentTypes[ext]
   }
 
-  if (CacheControl?.[ext]) {
-    commandObj['CacheControl'] = CacheControl[ext]
-  }
+  // if (CacheControl?.[ext]) {
+  //   commandObj['CacheControl'] = CacheControl[ext]
+  // }
 
   const command = new PutObjectCommand(commandObj)
 

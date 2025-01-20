@@ -12,12 +12,26 @@ export const getMarkdownByPage = async (pageId: string) => {
 
   const imgBlocks = markdownBlocks.filter((block) => block.type === 'image')
 
+  console.log({
+    1: imgBlocks,
+  })
+
   if (imgBlocks.length > 0) {
     for (const imgBlock of imgBlocks) {
+      console.log({
+        2: imgBlock,
+      })
       if (Boolean(imgBlock?.parent)) {
         const ast = unified().use(remarkParse).parse(imgBlock.parent)
 
+        console.log({
+          2: ast,
+        })
+
         visit(ast, 'image', (node) => {
+          console.log({
+            2: node,
+          })
           if (node.url) {
             const filename = basename(new URL(node.url).pathname)
             const hashedFilename = hashWithMd5(filename).slice(0, 16) + extname(filename)
