@@ -30,8 +30,8 @@
     "remark-rehype": "^11.1.1",
     "rss": "^1.2.2",
     "unified": "^11.0.5",
-    "usehooks-ts": "^3.1.0",
-    "unist-util-map": "^4.0.0"
+    "unist-util-map": "^4.0.0",
+    "usehooks-ts": "^3.1.0"
   },
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.731.1",
@@ -45,6 +45,7 @@
     "eslint": "^8",
     "eslint-config-next": "15.0.4",
     "file-type": "^20.0.0",
+    "remark-stringify": "^11.0.0",
     "typescript": "^5"
   }
 }

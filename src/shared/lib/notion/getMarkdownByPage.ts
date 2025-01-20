@@ -1,8 +1,8 @@
 import { unified } from 'unified'
 import remarkParse from 'remark-parse'
+import remarkStringify from 'remark-stringify'
 import { map } from 'unist-util-map'
-import { createWriteStream, mkdirSync } from 'node:fs'
-import { join, basename, extname } from 'node:path'
+import { basename, extname } from 'node:path'
 
 import { notionToMarkdown } from './notion'
 import { createHash } from 'node:crypto'
@@ -17,16 +17,10 @@ export const getMarkdownByPage = async (pageId: string) => {
       if (Boolean(imgBlock?.parent)) {
         const ast = unified().use(remarkParse).parse(imgBlock.parent)
 
-        map(ast, (node) => {
+        const updatedAst = map(ast, (node) => {
           if (node.type === 'image' && node.url) {
             const filename = basename(new URL(node.url).pathname)
             const hashedFilename = hashWithMd5(filename).slice(0, 16) + extname(filename)
-
-            const dir = `${process.cwd()}/src/shared/images/${pageId}`
-            mkdirSync(dir, { recursive: true })
-
-            const savePath = join(dir, hashedFilename)
-            saveImage(node.url, savePath)
 
             return {
               ...node,
@@ -36,6 +30,14 @@ export const getMarkdownByPage = async (pageId: string) => {
 
           return node
         })
+
+        // Serialize the updated AST back into a string if necessary
+        const updatedContent = unified()
+          .use(remarkStringify)
+          .stringify(updatedAst as any)
+
+        // Use the updated content (e.g., replace imgBlock.parent)
+        imgBlock.parent = updatedContent
       }
     }
   }
@@ -43,45 +45,6 @@ export const getMarkdownByPage = async (pageId: string) => {
   const markdown = notionToMarkdown.toMarkdownString(markdownBlocks)
 
   return markdown
-}
-
-const saveImage = async (url: string, path: string) => {
-  try {
-    const response = await downloadImage(url)
-
-    if (response?.body == null) {
-      throw new Error('response.body is null')
-    }
-
-    const fileStream = createWriteStream(path)
-    const reader = response.body.getReader()
-
-    while (true) {
-      const { value, done } = await reader.read()
-
-      if (value) {
-        fileStream.write(Buffer.from(value))
-      }
-
-      if (done) {
-        break
-      }
-    }
-
-    fileStream.end()
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-const downloadImage = async (url: string) => {
-  try {
-    const response = await fetch(url)
-
-    return response
-  } catch (err) {
-    console.error(err)
-  }
 }
 
 const hashWithMd5 = (input: string) => {
