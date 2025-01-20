@@ -1,6 +1,8 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  assetPrefix: process.env.NEXT_PUBLIC_AWS_CF_URL,
+
   /** @see {docs} https://react-svgr.com/docs/next/ */
   webpack(config) {
     // Grab the existing rule that handles SVG imports

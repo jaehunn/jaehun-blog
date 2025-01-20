@@ -11,5 +11,15 @@ declare namespace NodeJS {
 
     // Gitbook
     NEXT_PUBLIC_GITBOOK_ACCESS_TOKEN: string
+
+    // AWS
+    // CloudFront
+    NEXT_PUBLIC_AWS_CF_URL: string
+
+    // S3
+    AWS_S3_REGION: string
+    AWS_S3_BUCKET_NAME: string
+    AWS_ACCESS_KEY_ID: string
+    AWS_SECRET_ACCESS_KEY: string
   }
 }
