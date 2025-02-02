@@ -65,6 +65,9 @@ importers:
       unist-util-map:
         specifier: ^4.0.0
         version: 4.0.0
+      unist-util-visit:
+        specifier: ^5.0.0
+        version: 5.0.0
       usehooks-ts:
         specifier: ^3.1.0
         version: 3.1.0(react@19.0.0)
