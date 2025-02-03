@@ -68,7 +68,7 @@ export default async function RootLayout({ children }: PropsWithChildren<unknown
       <body className={`${nanumSquare.variable}`}>
         <ThemeProvider>
           <Layout>{children}</Layout>
-          <Analytics mode={process.env.NODE_ENV === 'production' ? 'production' : 'development'} />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
