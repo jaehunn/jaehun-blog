@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { PropsWithChildren } from 'react'
+import { Analytics } from '@vercel/analytics/next'
 
 import { ThemeProvider } from './_providers'
 import { Layout } from './_ui/Layout'
@@ -67,6 +68,7 @@ export default async function RootLayout({ children }: PropsWithChildren<unknown
       <body className={`${nanumSquare.variable}`}>
         <ThemeProvider>
           <Layout>{children}</Layout>
+          <Analytics mode={process.env.NODE_ENV === 'production' ? 'production' : 'development'} />
         </ThemeProvider>
       </body>
     </html>
