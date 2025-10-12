@@ -1,20 +1,12 @@
 import { unified } from 'unified'
 import remarkParse from 'remark-parse'
 import { visit } from 'unist-util-visit'
-import { createWriteStream, mkdirSync } from 'node:fs'
-import { join, basename, extname } from 'node:path'
+import { mkdirSync, existsSync } from 'node:fs'
+import { join } from 'node:path'
+import sharp from 'sharp'
 
-import { createHash } from 'node:crypto'
-
-import { Client } from '@notionhq/client'
-import { NotionToMarkdown } from 'notion-to-md'
-import dotenv from 'dotenv'
-
-dotenv.config({ path: join(process.cwd(), '.env.local') })
-
-export const notionClient = new Client({ auth: process.env.NEXT_PUBLIC_NOTION_API_KEY })
-
-export const notionToMarkdown = new NotionToMarkdown({ notionClient })
+import { notionToMarkdown, getPages } from './notion-client.mjs'
+import { getHashedFilename } from './utils.mjs'
 
 const getMarkdownByPage = async (pageId) => {
   const markdownBlocks = await notionToMarkdown.pageToMarkdown(pageId)
@@ -30,16 +22,23 @@ const getMarkdownByPage = async (pageId) => {
 
         visit(ast, 'image', (node) => {
           if (node.url) {
-            const filename = basename(new URL(node.url).pathname)
-            const hashedFilename = hashWithMd5(filename).slice(0, 16) + extname(filename)
+            const hashedFilename = getHashedFilename(node.url)
 
-            // create directory
-            const dir = `${process.cwd()}/src/images/${pageId}`
+            // create directory in public folder
+            const dir = `${process.cwd()}/public/images/${pageId}`
             mkdirSync(dir, { recursive: true })
 
-            // save image
+            // save image as webp
             const savePath = join(dir, hashedFilename)
-            saveImage(node.url, savePath)
+
+            // Skip if file already exists
+            if (existsSync(savePath)) {
+              console.log(`⏭️  Skipped (already exists): ${hashedFilename}`)
+
+              return
+            }
+
+            saveImageAsWebp(node.url, savePath)
           }
         })
       }
@@ -51,56 +50,24 @@ const getMarkdownByPage = async (pageId) => {
   return markdown
 }
 
-const saveImage = async (url, path) => {
-  try {
-    const response = await downloadImage(url)
-
-    if (response?.body == null) {
-      throw new Error('response.body is null')
-    }
-
-    const fileStream = createWriteStream(path)
-    const reader = response.body.getReader()
-
-    while (true) {
-      const { value, done } = await reader.read()
-
-      if (value) {
-        fileStream.write(Buffer.from(value))
-      }
-
-      if (done) {
-        break
-      }
-    }
-
-    fileStream.end()
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-const downloadImage = async (url) => {
+const saveImageAsWebp = async (url, path) => {
   try {
     const response = await fetch(url)
 
-    return response
+    if (!response.ok) {
+      throw new Error(`Failed to fetch image: ${response.statusText}`)
+    }
+
+    const arrayBuffer = await response.arrayBuffer()
+    const buffer = Buffer.from(arrayBuffer)
+
+    // Convert to webp using sharp
+    await sharp(buffer).webp({ quality: 80 }).toFile(path)
+
+    console.log(`✓ Saved: ${path}`)
   } catch (err) {
-    console.error(err)
+    console.error(`✗ Error saving ${url}:`, err.message)
   }
-}
-
-const hashWithMd5 = (input) => {
-  const hash = createHash('md5')
-  hash.update(input)
-
-  return hash.digest('hex')
-}
-
-export const getPages = async () => {
-  const database = await notionClient.databases.query({ database_id: process.env.NEXT_PUBLIC_NOTION_DATABASE_ID })
-
-  return database.results
 }
 
 async function main() {

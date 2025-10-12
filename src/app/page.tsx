@@ -1,43 +1,28 @@
-import { Avatar, Flex, Heading, Link, Text } from '@radix-ui/themes'
-import { EnvelopeOpenIcon, GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons'
-import { Spacing } from '~/components/space'
-import profileImage from '~/images/profile.png'
+import Image from 'next/image'
 
 export default function Home() {
   return (
-    <Flex direction="column" gap="2" align="center">
-      <Spacing size="9" />
+    <div className="flex flex-col items-center text-center space-y-8 py-12">
+      {/* Profile Section */}
+      <div className="space-y-6">
+        <Image
+          src="/images/profile.webp"
+          alt="방재훈"
+          className="rounded-full object-cover mx-auto"
+          width={180}
+          height={180}
+        />
 
-      <Link href="/">
-        <Avatar size="9" radius="full" src={profileImage.src} fallback="👤" />
-      </Link>
-
-      <Spacing size="5" />
-
-      <Heading as="h1" size="8">
-        방재훈
-      </Heading>
-      <Text size="4">Web Frontend Developer</Text>
-
-      <Text size="3" color="gray">
-        Bungaejangter Inc.
-      </Text>
-
-      <Spacing size="2" />
-
-      <Flex gap="2" align="center">
-        <Link href="mailto:qkdwogns98@gmail.com" target="_blank">
-          <EnvelopeOpenIcon color="black" />
-        </Link>
-
-        <Link href="https://github.com/jaehunn" target="_blank">
-          <GitHubLogoIcon color="black" />
-        </Link>
-
-        <Link href="https://kr.linkedin.com/in/jaehunn" target="_blank">
-          <LinkedInLogoIcon color="black" />
-        </Link>
-      </Flex>
-    </Flex>
+        <div className="space-y-4">
+          <h1 className="text-4xl font-bold tracking-tight">방재훈</h1>
+          <p className="text-xl text-muted-foreground max-w-[600px]">
+            {'안녕하세요,'}
+            <br />
+            {'프론트엔드 개발자 방재훈입니다.'}
+            {''}
+          </p>
+        </div>
+      </div>
+    </div>
   )
 }

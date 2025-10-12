@@ -1,87 +1,91 @@
-import { Metadata } from 'next'
 import { PropsWithChildren } from 'react'
 import { Analytics } from '@vercel/analytics/next'
-
-import { ThemeProvider } from '~/providers/theme-provider'
-import { nanumSquare } from '~/fonts/nanumSquare'
-
-import '~/styles/reset.css'
-import '@radix-ui/themes/styles.css'
-import '~/styles/markdown.css'
-import '~/styles/global.css'
-import { Container, Flex, Text } from '@radix-ui/themes'
 import Link from 'next/link'
 
-export const metadata: Metadata = {
-  /** @see https://nextjs.org/docs/app/api-reference/functions/generate-metadata#basic-fields */
-  metadataBase: new URL('https://jaehun.dev'),
-  title: {
-    template: '%s | Jaehun',
-    default: 'Jaehun',
-  },
-  description: "Jaehun's blog.",
-  keywords: 'Jaehun, frontend developer, web developer, next.js',
+import { nanumSquare } from '~/shared/fonts/nanumSquare'
+import { defaultMetadata, siteConfig } from '~/shared/config'
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from '~/components/ui/navigation-menu'
 
-  /** @see https://nextjs.org/docs/app/api-reference/functions/generate-metadata#opengraph */
-  openGraph: {
-    title: 'Jaehun',
-    description: "Jaehun's personal blog.",
-    url: 'https://jaehun.dev',
-    siteName: "Jaehun's website",
-    locale: 'ko_KR',
-    type: 'website',
-    images: [
-      {
-        url: `https://jaehun.dev/api/og?title=${encodeURIComponent('jaehun dev')}`,
-        width: 1200,
-        height: 600,
-        alt: "Jaehun's personal blog",
-      },
-    ],
-  },
+import '~/shared/styles/markdown.css'
+import '~/shared/styles/global.css'
+import { EnvelopeOpenIcon, GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons'
 
-  /** @see https://nextjs.org/docs/app/api-reference/functions/generate-metadata#robots */
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-    },
-  },
-
-  /** @see https://nextjs.org/docs/app/api-reference/functions/generate-metadata#icons */
-  icons: {
-    shortcut: 'https://jaehun.dev/favicon.ico',
-  },
-
-  /** @see https://nextjs.org/docs/app/api-reference/functions/generate-metadata#alternates */
-  alternates: {
-    types: {
-      'application/rss+xml': 'https://jaehun.dev/rss.xml',
-    },
-  },
-}
+export const metadata = defaultMetadata
 
 export default async function RootLayout({ children }: PropsWithChildren<unknown>) {
   return (
-    <html lang="ko">
-      <body className={`${nanumSquare.variable}`}>
-        <ThemeProvider>
-          <Container size="4" px="4" py="6" height="100%">
-            <Flex gap="2" justify="end">
-              <Link href="/about">
-                <Text size="4">About</Text>
-              </Link>
-              <Link href="/articles">
-                <Text size="4">Articles</Text>
-              </Link>
-            </Flex>
+    <html lang="ko" className="h-full">
+      <body className={`${nanumSquare.variable} h-full flex flex-col`}>
+        <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <div className="w-full max-w-none mx-auto px-4 py-4">
+            <div className="flex h-14 items-center justify-between">
+              <div className="flex items-center">
+                <Link href="/" className="flex items-center space-x-2">
+                  <span className="text-xl font-bold flex items-center space-x-2">재훈</span>
+                </Link>
+              </div>
 
-            <main>{children}</main>
-          </Container>
-          <Analytics />
-        </ThemeProvider>
+              <NavigationMenu>
+                <NavigationMenuList>
+                  {Object.entries(siteConfig.links).map(([key, { label, url }]) => (
+                    <NavigationMenuItem key={key}>
+                      <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                        <Link href={url}>{label}</Link>
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
+                  ))}
+                </NavigationMenuList>
+              </NavigationMenu>
+            </div>
+          </div>
+        </header>
+
+        <main className="flex-1">
+          <div className="w-full max-w-4xl mx-auto px-4 py-6">{children}</div>
+        </main>
+
+        <footer className="border-t">
+          <div className="w-full max-w-none mx-auto px-4 py-6">
+            <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+              <p className="text-sm text-muted-foreground">© 2025 Jaehun. All rights reserved.</p>
+              <div className="flex items-center space-x-4">
+                <Link
+                  href="https://github.com/jaehunn"
+                  target="_blank"
+                  className="p-2 rounded-full hover:bg-accent transition-colors"
+                  aria-label="GitHub"
+                >
+                  <GitHubLogoIcon className="w-6 h-6" />
+                </Link>
+
+                <Link
+                  href="https://kr.linkedin.com/in/jaehunn"
+                  target="_blank"
+                  className="p-2 rounded-full hover:bg-accent transition-colors"
+                  aria-label="LinkedIn"
+                >
+                  <LinkedInLogoIcon className="w-6 h-6" />
+                </Link>
+
+                <Link
+                  href="mailto:qkdwogns98@gmail.com"
+                  className="p-2 rounded-full hover:bg-accent transition-colors"
+                  aria-label="Email"
+                >
+                  <EnvelopeOpenIcon className="w-6 h-6" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </footer>
+
+        <Analytics />
       </body>
     </html>
   )

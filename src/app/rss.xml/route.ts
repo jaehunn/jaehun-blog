@@ -1,9 +1,9 @@
 import RSS from 'rss'
 
-import { getArticles } from '../articles/getArticles'
+import { getPosts } from '~/entities/post/api/get-posts'
 
 export async function GET() {
-  const articles = await getArticles()
+  const posts = await getPosts()
 
   const feed = new RSS({
     title: 'Jaehun',
@@ -14,14 +14,14 @@ export async function GET() {
     description: "Jaehun's personal blog",
   })
 
-  articles.forEach((article) => {
+  posts.forEach((post) => {
     feed.item({
-      title: article.title,
-      description: article.description,
-      date: new Date(article.createdAt),
+      title: post.title,
+      description: post.description,
+      date: new Date(post.createdAt),
       author: 'Bang, Jaehun',
-      url: `${process.env.NEXT_PUBLIC_URL}/articles/${article.id}`,
-      guid: `${process.env.NEXT_PUBLIC_URL}/articles/${article.id}`,
+      url: `${process.env.NEXT_PUBLIC_URL}/posts/${post.id}`,
+      guid: `${process.env.NEXT_PUBLIC_URL}/posts/${post.id}`,
     })
   })
 

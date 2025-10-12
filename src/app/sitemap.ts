@@ -1,23 +1,23 @@
 import { MetadataRoute } from 'next'
 
-import { getArticles } from './articles/getArticles'
+import { getPosts } from '~/entities/post/api/get-posts'
 
 /** @see https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const articles = await getArticles()
+  const posts = await getPosts()
 
-  const routes = ['', 'articles'].map((route) => ({
+  const routes = ['', 'posts'].map((route) => ({
     url: `https://jaehun.dev/${route}`,
     lastModified: new Date().toISOString(),
   }))
 
-  const posts =
-    articles.map((article) => {
+  const postsRoutes =
+    posts.map((post) => {
       return {
-        url: `https://jaehun.dev/articles/${article.id}`,
-        lastModified: new Date(article.updatedAt).toISOString(),
+        url: `https://jaehun.dev/posts/${post.id}`,
+        lastModified: new Date(post.updatedAt).toISOString(),
       }
     }) ?? []
 
-  return [...routes, ...posts]
+  return [...routes, ...postsRoutes]
 }
