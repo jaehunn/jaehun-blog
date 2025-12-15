@@ -34,14 +34,19 @@ export const PostList = ({ posts }: Props) => {
   }
 
   return (
-    <motion.ul variants={containerVariants} initial="hidden" animate="visible">
+    <motion.div
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
       {posts.map((post) => {
         return (
-          <motion.li key={post.id} variants={itemVariants}>
+          <motion.div key={post.id} variants={itemVariants}>
             <Post {...post} />
-          </motion.li>
+          </motion.div>
         )
       })}
-    </motion.ul>
+    </motion.div>
   )
 }

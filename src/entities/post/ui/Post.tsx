@@ -1,6 +1,8 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 import { Badge } from '~/components/ui/badge'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { date } from '~/shared/lib/date'
 
 export type PostType = {
@@ -19,6 +21,9 @@ export type PostType = {
   /** 내용 */
   body: string
 
+  /** 썸네일 */
+  thumbnail?: string
+
   /** 생성일 */
   createdAt: string
 
@@ -29,23 +34,44 @@ export type PostType = {
   url: string
 }
 
-export const Post = ({ id, title, description, createdAt, type, url }: PostType) => {
+export const Post = ({ id, title, description, createdAt, type, url, thumbnail }: PostType) => {
   return (
-    <Link key={id} href={url} className="group block">
-      <article className="py-6 border-b border-border/40 last:border-b-0 hover:bg-accent/30 -mx-4 px-4 rounded-lg transition-all duration-200">
-        <div className="space-y-3">
-          <div className="flex items-center gap-3 text-sm text-muted-foreground">
+    <Link key={id} href={url} className="group block h-full">
+      <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">
+        {thumbnail && (
+          <div className="relative w-full h-48 overflow-hidden bg-muted">
+            <Image
+              src={thumbnail}
+              alt={title}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
+        )}
+
+        <CardHeader>
+          <div className="flex items-center gap-2 mb-2">
             <Badge variant="outline" className="text-xs">
               {type === 'book' ? 'Book' : 'Post'}
             </Badge>
-            <time dateTime={createdAt}>{date.format(new Date(createdAt))}</time>
+            <time className="text-xs text-muted-foreground" dateTime={createdAt}>
+              {date.format(new Date(createdAt))}
+            </time>
           </div>
+          <CardTitle className="text-xl group-hover:text-primary transition-colors line-clamp-2">
+            {title}
+          </CardTitle>
+        </CardHeader>
 
-          <h3 className="text-xl font-semibold group-hover:text-primary transition-colors duration-200">{title}</h3>
-
-          <p className="text-muted-foreground leading-relaxed line-clamp-2">{description}</p>
-        </div>
-      </article>
+        {description && (
+          <CardContent>
+            <CardDescription className="line-clamp-3 leading-relaxed">
+              {description}
+            </CardDescription>
+          </CardContent>
+        )}
+      </Card>
     </Link>
   )
 }

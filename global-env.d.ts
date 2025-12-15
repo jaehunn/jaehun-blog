@@ -8,7 +8,6 @@ declare namespace NodeJS {
     // Notion API
     NEXT_PUBLIC_NOTION_API_KEY: string
     NEXT_PUBLIC_NOTION_POSTS_DATABASE_ID: string
-    NEXT_PUBLIC_NOTION_THINKS_DATABASE_ID: string
 
     // GitBook Access Token
     NEXT_PUBLIC_GITBOOK_ACCESS_TOKEN: string

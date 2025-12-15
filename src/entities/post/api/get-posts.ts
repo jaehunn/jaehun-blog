@@ -8,11 +8,21 @@ export const getPosts = async () => {
   const markdowns = await Promise.all(pages.map((page) => getMarkdownByPage(page.id)))
 
   const posts: PostType[] = pages.map((page, index) => {
-    const { id, created_time: createdAt, last_edited_time: updatedAt } = page
+    const { id, created_time: createdAt, last_edited_time: updatedAt, cover } = page
     const { title: titleProperties } = page.properties
 
     const [{ plain_text: title }] = titleProperties.title
     // const [{ plain_text: description }] = descriptionProperties['rich_text']
+
+    // Extract thumbnail from cover image
+    let thumbnail: string | undefined
+    if (cover) {
+      if (cover.type === 'external') {
+        thumbnail = cover.external.url
+      } else if (cover.type === 'file') {
+        thumbnail = cover.file.url
+      }
+    }
 
     return {
       type: 'post',
@@ -23,6 +33,7 @@ export const getPosts = async () => {
       updatedAt,
       body: `${markdowns[index].parent}`,
       url: `/posts/${id}`,
+      thumbnail,
     }
   })
 

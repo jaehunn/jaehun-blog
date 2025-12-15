@@ -1,6 +1,6 @@
 import { sortBy } from 'lodash-es'
 
-import { PostList } from './PostList'
+import { PostListWithPagination } from './PostListWithPagination'
 import { getPosts } from '~/entities/post/api/get-posts'
 
 export const PostListRSC = async () => {
@@ -8,5 +8,5 @@ export const PostListRSC = async () => {
 
   const latestPosts = sortBy(posts, 'createdAt').reverse()
 
-  return <PostList posts={latestPosts} />
+  return <PostListWithPagination posts={latestPosts} />
 }
