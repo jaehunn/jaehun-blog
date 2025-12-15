@@ -7,6 +7,7 @@ import rehypeStringify from 'rehype-stringify'
 
 import { getPostById } from '~/entities/post/api/get-post-by-id'
 import { getPosts } from '~/entities/post/api/get-posts'
+import Comments from '~/components/Comments'
 
 interface Props {
   params: Promise<{ id: string }>
@@ -61,11 +62,14 @@ export default async function PostPage({ params }: Props) {
     .process(post.body)
 
   return (
-    <div
-      className="markdown-body"
-      dangerouslySetInnerHTML={{
-        __html: contentHtml.value,
-      }}
-    />
+    <>
+      <div
+        className="markdown-body"
+        dangerouslySetInnerHTML={{
+          __html: contentHtml.value,
+        }}
+      />
+      <Comments />
+    </>
   )
 }

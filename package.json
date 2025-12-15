@@ -12,6 +12,7 @@
     "notion-image": " node ./scripts/notion-image.mjs"
   },
   "dependencies": {
+    "@giscus/react": "^3.1.0",
     "@notionhq/client": "^2.2.15",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-icons": "^1.3.2",
@@ -25,6 +26,7 @@
     "lodash-es": "^4.17.21",
     "lucide-react": "^0.545.0",
     "next": "15.0.7",
+    "motion": "^12.23.26",
     "next-themes": "^0.4.4",
     "notion-to-md": "^3.1.1",
     "postcss": "^8.5.6",
