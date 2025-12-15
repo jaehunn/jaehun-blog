@@ -10,7 +10,7 @@ export const siteConfig = {
   },
   links: {
     posts: {
-      label: '글',
+      label: '아티클',
       url: '/posts',
     },
   },

@@ -11,6 +11,7 @@ import {
   NavigationMenuList,
   navigationMenuTriggerStyle,
 } from '~/components/ui/navigation-menu'
+import { ThemeProvider } from '~/components/theme-provider'
 
 import '~/shared/styles/markdown.css'
 import '~/shared/styles/global.css'
@@ -20,9 +21,10 @@ export const metadata = defaultMetadata
 
 export default async function RootLayout({ children }: PropsWithChildren<unknown>) {
   return (
-    <html lang="ko" className="h-full">
+    <html lang="ko" className="h-full" suppressHydrationWarning>
       <body className={`${nanumSquare.variable} h-full flex flex-col`}>
-        <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+          <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="w-full max-w-none mx-auto px-4 py-4">
             <div className="flex h-14 items-center justify-between">
               <div className="flex items-center">
@@ -52,8 +54,7 @@ export default async function RootLayout({ children }: PropsWithChildren<unknown
 
         <footer className="border-t">
           <div className="w-full max-w-none mx-auto px-4 py-6">
-            <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-              <p className="text-sm text-muted-foreground">© 2025 Jaehun. All rights reserved.</p>
+            <div className="flex items-center justify-center">
               <div className="flex items-center space-x-4">
                 <Link
                   href="https://github.com/jaehunn"
@@ -86,6 +87,7 @@ export default async function RootLayout({ children }: PropsWithChildren<unknown
         </footer>
 
         <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   )

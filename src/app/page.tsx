@@ -1,47 +1,32 @@
-'use client'
+import Link from 'next/link'
+import { ProfileSection } from './ProfileSection'
+import { getPosts } from '~/entities/post/api/get-posts'
+import { Post } from '~/entities/post/ui/Post'
 
-import Image from 'next/image'
-import { motion } from 'motion/react'
+export default async function Home() {
+  const allPosts = await getPosts()
+  const latestPosts = allPosts
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .slice(0, 3)
 
-const fadeInUp = {
-  initial: { opacity: 0, y: 30 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6 },
-}
-
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.15,
-    },
-  },
-}
-
-export default function Home() {
   return (
-    <div className="flex flex-col items-center text-center space-y-8 py-12">
-      {/* Profile Section */}
-      <motion.div className="space-y-6" initial="initial" animate="animate" variants={staggerContainer}>
-        <motion.div variants={fadeInUp}>
-          <Image
-            src="/images/profile.webp"
-            alt="방재훈"
-            className="rounded-full object-cover mx-auto"
-            width={180}
-            height={180}
-          />
-        </motion.div>
+    <div className="flex flex-col items-center text-center space-y-12 py-12">
+      <ProfileSection />
 
-        <motion.div className="space-y-4" variants={fadeInUp}>
-          <h1 className="text-4xl font-bold tracking-tight">방재훈</h1>
-          <p className="text-xl text-muted-foreground max-w-[600px]">
-            {'안녕하세요,'}
-            <br />
-            {'프론트엔드 개발자 방재훈입니다.'}
-            {''}
-          </p>
-        </motion.div>
-      </motion.div>
+      <div className="w-full max-w-4xl space-y-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-2xl font-bold">최신 포스트</h2>
+          <Link href="/posts" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            전체보기 →
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {latestPosts.map((post) => (
+            <Post key={post.id} {...post} />
+          ))}
+        </div>
+      </div>
     </div>
   )
 }

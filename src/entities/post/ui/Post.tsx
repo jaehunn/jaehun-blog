@@ -3,6 +3,7 @@ import Image from 'next/image'
 
 import { Badge } from '~/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
+import { DefaultImage } from '~/components/ui/default-image'
 import { date } from '~/shared/lib/date'
 
 export type PostType = {
@@ -38,17 +39,19 @@ export const Post = ({ id, title, description, createdAt, type, url, thumbnail }
   return (
     <Link key={id} href={url} className="group block h-full">
       <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">
-        {thumbnail && (
-          <div className="relative w-full h-48 overflow-hidden bg-muted">
+        <div className="relative w-full h-64 overflow-hidden bg-muted">
+          {thumbnail ? (
             <Image
               src={thumbnail}
               alt={title}
               fill
               className="object-cover transition-transform duration-300 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              sizes="(max-width: 768px) 100vw, 50vw"
             />
-          </div>
-        )}
+          ) : (
+            <DefaultImage seed={id} className="w-full h-full" />
+          )}
+        </div>
 
         <CardHeader>
           <div className="flex items-center gap-2 mb-2">
